@@ -41,18 +41,20 @@ void loop() {
     B = map(B,25,70,255,0);
     delay(100);
 
-    if(max(R,G,B) == R){ // counter-clockwise turn
+    if(max(max(R,G),B) == R){ // counter-clockwise turn
       lwheel.writeMicroseconds(1500); 
       rwheel.writeMicroseconds(2000);
-    }else if(max(R,G,B) == B){ // clockwise turn
+    }else if(max(max(R,G),B) == B){ // clockwise turn
       lwheel.writeMicroseconds(2000);
       rwheel.writeMicroseconds(1500);
-    }else if(max(R,G,B) == G){ // straightforward movement
+    }else if(max(max(R,G),B) == G){ // straightforward movement
       lwheel.writeMicroseconds(2000);
       rwheel.writeMicroseconds(2000);
-    }else{ // 1-second delay due to token absence
-      delay(1000);
     }
+    else{ // no movement due to token absence
+      lwheel.writeMicroseconds(1500);
+      rwheel.writeMicroseconds(1500);
+    }
+    delay(1000); // each action is executed for 1 second
   }
-
 }
